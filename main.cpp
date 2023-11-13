@@ -375,9 +375,9 @@ class RedNeuronal {
 // Main {{{1
 int main(){
 
-	RedNeuronal nn_sigmoid(30, 3, {10, 10, 2}, 2, {sigmoid, relu, tanhActivation, sigmoid});
-	/* RedNeuronal nn_tanh(30, 2, {10, 2}, 1, {tanhActivation, tanhActivation, tanhActivation}, 8); */
-	/* RedNeuronal nn_relu(30, 2, {10, 2}, 1, {relu, relu, relu}, 8); */
+	RedNeuronal nn_sigmoid(30, 2, {10, 2}, 2, {sigmoid, sigmoid, sigmoid}, 8);
+	RedNeuronal nn_tanh(30, 2, {10, 2}, 2, {tanhActivation, tanhActivation, tanhActivation}, 8);
+	RedNeuronal nn_relu(30, 2, {10, 2}, 2, {relu, relu, relu}, 8);
 
 	auto [X, Y] = loadData();
 
@@ -401,7 +401,14 @@ int main(){
     }
 	auto [X_train, X_test, Y_train, Y_test] = divideData(X_shuffled, Y_shuffled, 0.7);	
 	
+	std::cout << "Sigmoid\n";
 	nn_sigmoid.train(X_train, Y_train, 1000, 0.01);
+
+	std::cout << "ReLu\n";
+	nn_relu.train(X_train, Y_train, 1000, 0.01);	
+
+	std::cout << "Tanh\n";
+	nn_tanh.train(X_train, Y_train, 1000, 0.01);
 
 	return 0;
 }
